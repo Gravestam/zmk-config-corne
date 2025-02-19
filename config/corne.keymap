@@ -4,10 +4,14 @@
  * SPDX-License-Identifier: MIT
  */
 
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 10
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define COLEMAK		0
 #define SYMBOLS		1
@@ -68,10 +72,10 @@
 
         COMBO {
             bindings = <
-&none  &none       &none     &none      &none      &none     &kp PAGE_UP    &kp HOME  &kp UP    &kp END    &none  &mo 4
-&none  &caps_word  &kp LALT  &kp LSHFT  &kp LCTRL  &none     &kp PAGE_DOWN  &kp LEFT  &kp DOWN  &kp RIGHT  &none  &none
-&none  &none       &none     &none      &none      &none     &none          &none     &none     &none      &none  &none
-                             &none      &trans     &trans    &none          &trans    &none
+&none  &none       &none     &none      &mkp MCLK      &mkp MB4     &none    &msc SCRL_DOWN  &mmv MOVE_UP    &msc SCRL_UP    &none  &mo 4
+&none  &caps_word  &none  	 &none      &mkp LCLK      &mkp RCLK     &none    &mmv MOVE_LEFT  &mmv MOVE_DOWN    &mmv MOVE_RIGHT    &none  &none
+&none  &none       &none     &none      &none      &none     &none    &none  &none    &none    &none  &none
+                             &none      &trans     &trans    &none    &trans    &none
             >;
         };
 
