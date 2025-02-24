@@ -31,12 +31,30 @@
 		};
 	};
 
+	behaviors {
+		mo_layer_cw: mo_layer_cw {
+			compatible = "zmk,behavior-hold-tap";
+			label = "LAYER_CAPS_WORD";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <200>;
+			quick-tap-ms = <125>;
+			global-quick-tap;
+			bindings = <&mo>, <&caps_word>;
+		};
+	};
+
 	macros {
-		m_caps_word: m_caps_word{
+		m_mail_personal: m_mail_personal {
 			compatible = "zmk,behavior-macro";
-			label = "Caps Word Macro";
 			#binding-cells = <0>;
-			bindings = <&caps_word>;
+			bindings = <
+				&kp M &kp A &kp R &kp T &kp I &kp N
+				&kp AT
+				&kp G &kp R &kp A &kp V &kp E &kp S &kp T &kp A &kp M
+				&kp DOT
+				&kp S &kp I &kp T &kp E
+			>;
 		};
 	};
 
@@ -49,7 +67,7 @@
 				&kp TAB			&kp Q		&kp W		&kp F		&kp P		&kp B		&kp J		&kp L		&kp U		&kp Y		&kp SEMI	&kp BSPC
 				&mt LCTRL ESC	&kp A		&kp R		&kp S		&kp T		&kp G		&kp M		&kp N		&kp E		&kp I		&kp O		&kp SQT
 				&kp LSHIFT		&kp Z		&kp X		&kp C		&kp D		&kp V		&kp K		&kp H		&kp COMMA	&kp DOT		&kp FSLH	&kp RET
-				&kp LALT	&lt NUMBERS m_caps_word	&kp LGUI	&mt RSHIFT SPACE	&mo SYMBOLS	&kp LG(LC(LEFT_ALT))
+				&kp LALT	&mo_layer_cw NUMBERS 0	&kp LGUI	&mt RSHIFT SPACE	&mo SYMBOLS	&kp LG(LC(LEFT_ALT))
 			>;
 		};
 
