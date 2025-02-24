@@ -38,20 +38,29 @@
 			compatible = "zmk,behavior-hold-tap";
 			label = "LAYER_CAPS_WORD";
 			#binding-cells = <2>;
-			flavor = "tap-preferred";
+			flavor = "hold-preferred";
 			tapping-term-ms = <200>;
 			quick-tap-ms = <125>;
-			global-quick-tap;
 			bindings = <&mo>, <&caps_word>;
+		};
+
+		c_ht: custom_hold_tap {
+			compatible = "zmk,behavior-hold-tap";
+			label = "CUSTOM_HOLD_TAP";
+			#binding-cells = <2>;
+			flavor = "balanced";
+			tapping-term-ms = <200>;
+			quick-tap-ms = <125>;
+			bindings = <&kp>, <&kp>;
 		};
 	};
 
 	macros {
-		m_mail_personal: m_mail_personal {
+		// @gravestam.site
+		m_mail_p: m_mail_personal {
 			compatible = "zmk,behavior-macro";
 			#binding-cells = <0>;
 			bindings = <
-				&kp M &kp A &kp R &kp T &kp I &kp N
 				&kp AT
 				&kp G &kp R &kp A &kp V &kp E &kp S &kp T &kp A &kp M
 				&kp DOT
@@ -64,17 +73,17 @@
 		compatible = "zmk,keymap";
 
 		COLEMAK {
-			display-name = "Colemak DH";
+			display-name = "ColemakDH";
 			bindings = <
 				&kp TAB			&kp Q		&kp W		&kp F		&kp P		&kp B		&kp J		&kp L		&kp U		&kp Y		&kp SEMI	&kp BSPC
 				&mt LCTRL ESC	&kp A		&kp R		&kp S		&kp T		&kp G		&kp M		&kp N		&kp E		&kp I		&kp O		&kp SQT
 				&kp LSHIFT		&kp Z		&kp X		&kp C		&kp D		&kp V		&kp K		&kp H		&kp COMMA	&kp DOT		&kp FSLH	&kp RET
-				&kp LALT	&mo_layer_cw NUMBERS 0	&kp LGUI	&mt RSHIFT SPACE	&mo SYMBOLS	&mo MACROS
+				&kp LALT		&mo_layer_cw NUMBERS 0	&c_ht BSPC LGUI	&mt RSHIFT SPACE	&mo SYMBOLS	&mo MACROS
 			>;
 		};
 
 		SYMBOLS {
-			display-name = "Symbols";
+			display-name = "Code MF!";
 			bindings = <
 				&trans		&kp TILDE	&kp LT		&kp LBKT	&kp RBKT	&kp EXCL	&kp PRCNT		&kp HOME	&kp UP		&kp END		&kp MINUS	&kp DEL
 				&trans		&kp AMPS	&kp GT		&kp LPAR	&kp RPAR	&kp EQUAL	&kp CARET		&kp LEFT	&kp DOWN	&kp RIGHT	&kp COLON	&kp GRAVE
@@ -84,39 +93,39 @@
 		};
 
 		NUMBERS {
-			display-name = "Numbers";
+			display-name = "N Shit...";
 			bindings = <
-				&trans		&kp CAPS	&kp F7		&kp F8		&kp F9		&kp F10		&kp MINUS	&kp N7		&kp N8		&kp N9		&kp PLUS		&trans
-				&trans		&kp KP_NUM	&kp F4		&kp F5		&kp F6		&kp F11		&kp N0		&kp N4		&kp N5		&kp N6		&kp ASTRK		&none
-				&trans		&kp PSCRN	&kp F1		&kp F2		&kp F3		&kp F12		&none		&kp N1		&kp N2		&kp N3		&kp FSLH		&trans
+				&trans		&kp CAPS	&kp F7		&kp F8		&kp F9		&kp F10		&kp MINUS	&kp N7		&kp N8		&kp N9		&kp PLUS	&trans
+				&trans		&kp KP_NUM	&kp F4		&kp F5		&kp F6		&kp F11		&kp N0		&kp N4		&kp N5		&kp N6		&kp ASTRK	&none
+				&trans		&kp PSCRN	&kp F1		&kp F2		&kp F3		&kp F12		&none		&kp N1		&kp N2		&kp N3		&kp FSLH	&trans
 				&trans		&trans		&trans		&trans		&trans		&trans
 			>;
 		};
 
 		COMBO {
-			display-name = "Combo";
+			display-name = "Mouse";
 			bindings = <
-				&none  &none	&none     &none      &mkp MCLK  &mkp MB4  &none    &msc SCRL_DOWN  &mmv MOVE_UP    &msc SCRL_UP     &none  &mo SETTINGS
-				&none  &none	&none  	 &mkp LCLK  &mkp RCLK  &none     &none    &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none  &none
-				&none  &none       &none     &none      &none      &none     &none    &none  &none    &none    &none  &none
-				&none      &trans     &trans    &none    &trans    &none
+				&none	&none	&none	&none		&mkp MCLK	&mkp MB4	&none	&msc SCRL_DOWN	&mmv MOVE_UP	&msc SCRL_UP		&none	&mo SETTINGS
+				&none	&none	&none	&mkp LCLK	&mkp RCLK	&none		&none	&mmv MOVE_LEFT	&mmv MOVE_DOWN	&mmv MOVE_RIGHT		&none	&none
+				&none	&none	&none	&none		&none		&none		&none	&none			&none			&none				&none	&none
+				&none	&trans	&trans	&none		&trans		&none
 			>;
 		};
 
 		SETTINGS {
-			display-name = "Settings";
+			display-name = "Fuck off";
 			bindings = <
-				&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &none  &none       &kp C_VOL_UP  &none  &none        &trans
-				&studio_unlock       &none         &none         &none         &none         &none           &none  &kp C_MUTE  &kp C_VOL_DN  &none  &none        &none
-				&none       &none    &none         &none         &none  &bt OUT_TOG    &none  &none       &none         &none  &none  &none
-				&none         &trans        &trans          &none  &trans      &none
+				&bt BT_CLR		&bt BT_SEL 0	&bt BT_SEL 1	&bt BT_SEL 2	&bt BT_SEL 3	&bt BT_SEL 4	&none	&none		&kp C_VOL_UP	&none	&none	&trans
+				&studio_unlock	&none			&none			&none			&none			&none			&none	&kp C_MUTE	&kp C_VOL_DN	&none	&none	&none
+				&none			&none			&none			&none			&none			&bt OUT_TOG		&none	&none		&none			&none	&none	&none
+				&none			&trans			&trans			&none			&trans			&none
 			>;
 		};
 
 		MACROS {
-			display-name = "Macros";
+			display-name = "Lazy Shit";
 			bindings = <
-				&none		&none		&none		&none		&none		&m_mail_personal		&none		&none		&none		&none		&none		&none
+				&none		&none		&none		&none		&none		&m_mail_p	&none		&none		&none		&none		&none		&none
 				&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none
 				&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none
 				&none		&none		&none		&none		&none		&trans
