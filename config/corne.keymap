@@ -14,13 +14,14 @@
 
 // LAYERS
 #define COLEMAK		0
-#define SYMBOLS		1
-#define NUMBERS		2
-#define COMBO		3
-#define SETTINGS	4
-#define MACROS		5
-#define EXTRA_1		6
-#define EXTRA_2		7
+#define QWERTY		1
+#define DVORAK		2
+#define SYMBOLS		3
+#define NUMBERS		4
+#define COMBO		5
+#define SETTINGS	6
+#define MACROS		7
+#define GAME		8
 
 // DEVICETREE ROOT
 / {
@@ -67,6 +68,19 @@
 				&kp S &kp I &kp T &kp E
 			>;
 		};
+
+		// () => {};
+		m_jsa: m_js_arrow_function {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings = <
+				&kp LPAR &kp RPAR  // ()
+				&kp SPACE &kp EQUAL &kp GT &kp SPACE // =>
+				&kp LBRACE &kp ENTER &kp RBRACE // { }
+				&kp SEMI // ; 
+				&kp LEFT &kp LEFT &kp LEFT &kp LEFT &kp LEFT &kp LEFT // Move cursor back into ()
+			>;
+		};
 	};
 
 	keymap {
@@ -75,29 +89,59 @@
 		COLEMAK {
 			display-name = "ColemakDH";
 			bindings = <
-				&kp TAB			&kp Q		&kp W		&kp F		&kp P		&kp B		&kp J		&kp L		&kp U		&kp Y		&kp SEMI	&kp BSPC
+				// 1			// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
+				&kp TAB			&kp Q		&kp W		&kp F		&kp P		&kp B		&kp J		&kp L		&kp U		&kp Y		&kp SEMI	&kp COLON
 				&mt LCTRL ESC	&kp A		&kp R		&kp S		&kp T		&kp G		&kp M		&kp N		&kp E		&kp I		&kp O		&kp SQT
 				&kp LSHIFT		&kp Z		&kp X		&kp C		&kp D		&kp V		&kp K		&kp H		&kp COMMA	&kp DOT		&kp FSLH	&kp RET
+				// 1			// 2					// 3				// 1				// 2		// 3
 				&kp LALT		&mo_layer_cw NUMBERS 0	&c_htl LGUI BSPC	&mt RSHIFT SPACE	&mo SYMBOLS	&mo MACROS
 			>;
 		};
 
-		SYMBOLS {
-			display-name = "Code MF!";
+		QWERTY {
+			display-name = "Qwerty";
 			bindings = <
-				&trans		&kp TILDE	&kp LT		&kp LBKT	&kp RBKT	&kp EXCL	&kp PRCNT		&kp HOME	&kp UP		&kp END		&kp MINUS	&kp DEL
-				&trans		&kp AMPS	&kp GT		&kp LPAR	&kp RPAR	&kp EQUAL	&kp CARET		&kp LEFT	&kp DOWN	&kp RIGHT	&kp COLON	&kp GRAVE
-				&trans		&kp ASTRK	&kp PIPE	&kp LBRC	&kp RBRC	&kp DLLR	&kp LA(LSHFT)	&kp PLUS	&kp HASH	&kp AT		&kp BSLH	&trans
-				&trans		&trans		&trans		&trans		&trans		&trans
+				// 1			// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
+				&kp TAB			&kp Q		&kp W		&kp E		&kp R		&kp T		&kp Y		&kp U		&kp I		&kp O		&kp P		&kp COLON
+				&mt LCTRL ESC	&kp A		&kp S		&kp D		&kp F		&kp G		&kp H		&kp J		&kp K		&kp I		&kp SEMI	&kp SQT
+				&kp LSHIFT		&kp Z		&kp X		&kp C		&kp V		&kp B		&kp N		&kp M		&kp COMMA	&kp DOT		&kp FSLH	&kp RET
+				// 1			// 2		// 3		// 1		// 2		// 3
+				&trans			&trans		&trans		&trans		&trans		&trans
+			>;
+		};
+
+		DVORAK {
+			display-name = "Dvorak";
+			bindings = <
+				// 1			// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
+				&kp TAB			&kp SQT		&kp COMMA	&kp DOT		&kp P		&kp Y		&kp F		&kp G		&kp C		&kp R		&kp L		&kp FSLH
+				&mt LCTRL ESC	&kp A		&kp O		&kp E		&kp U		&kp I		&kp D		&kp H		&kp T		&kp N		&kp S		&kp MINUS
+				&kp LSHIFT		&kp SEMI	&kp Q		&kp J		&kp K		&kp X		&kp B		&kp M		&kp W		&kp V		&kp Z		&kp RET
+				// 1			// 2		// 3		// 1		// 2		// 3
+				&trans			&trans		&trans		&trans		&trans		&trans
+			>;
+		};
+
+		SYMBOLS {
+			display-name = "Symbols";
+			bindings = <
+				// 1			// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
+				&kp LS(TAB)		&kp TILDE	&kp LT		&kp LBKT	&kp RBKT	&kp EXCL	&kp PRCNT	&kp HOME	&kp UP		&kp END		&kp MINUS	&kp LS(MINUS)
+				&trans			&kp AMPS	&kp GT		&kp LPAR	&kp RPAR	&kp EQUAL	&kp CARET	&kp LEFT	&kp DOWN	&kp RIGHT	&kp RET		&kp GRAVE
+				&trans			&kp ASTRK	&kp PIPE	&kp LBRC	&kp RBRC	&kp DLLR	&kp INT6	&kp PLUS	&kp HASH	&kp AT		&kp BSLH	&trans
+				// 1			// 2		// 3		// 1		// 2		// 3
+				&trans			&trans		&kp DEL		&trans		&trans		&trans
 			>;
 		};
 
 		NUMBERS {
-			display-name = "N Shit...";
+			display-name = "Fn & N";
 			bindings = <
+				// 1		// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
 				&trans		&kp CAPS	&kp F7		&kp F8		&kp F9		&kp F10		&kp MINUS	&kp N7		&kp N8		&kp N9		&kp PLUS	&trans
 				&trans		&kp KP_NUM	&kp F4		&kp F5		&kp F6		&kp F11		&kp N0		&kp N4		&kp N5		&kp N6		&kp ASTRK	&none
 				&trans		&kp PSCRN	&kp F1		&kp F2		&kp F3		&kp F12		&none		&kp N1		&kp N2		&kp N3		&kp FSLH	&trans
+				// 1		// 2		// 3		// 1		// 2		// 3
 				&trans		&trans		&trans		&trans		&trans		&trans
 			>;
 		};
@@ -105,41 +149,50 @@
 		COMBO {
 			display-name = "Mouse";
 			bindings = <
+				// 1	// 2	// 3	// 4		// 5		// 6		// 1	// 2			// 3			// 4				// 5	// 6
 				&none	&none	&none	&none		&mkp MCLK	&mkp MB4	&none	&msc SCRL_DOWN	&mmv MOVE_UP	&msc SCRL_UP		&none	&mo SETTINGS
 				&none	&none	&none	&mkp LCLK	&mkp RCLK	&none		&none	&mmv MOVE_LEFT	&mmv MOVE_DOWN	&mmv MOVE_RIGHT		&none	&none
 				&none	&none	&none	&none		&none		&none		&none	&none			&none			&none				&none	&none
+				// 1	// 2	// 3	// 1		// 2		// 3
 				&none	&trans	&trans	&none		&trans		&none
 			>;
 		};
 
 		SETTINGS {
-			display-name = "Fuck off";
+			display-name = "Settings";
 			bindings = <
+				// 1			// 2			// 3			// 4			// 5			// 6			// 1	// 2		// 3			// 4	// 5	// 6
 				&bt BT_CLR		&bt BT_SEL 0	&bt BT_SEL 1	&bt BT_SEL 2	&bt BT_SEL 3	&bt BT_SEL 4	&none	&none		&kp C_VOL_UP	&none	&none	&trans
 				&studio_unlock	&none			&none			&none			&none			&none			&none	&kp C_MUTE	&kp C_VOL_DN	&none	&none	&none
 				&none			&none			&none			&none			&none			&bt OUT_TOG		&none	&none		&none			&none	&none	&none
-				&none			&trans			&trans			&none			&trans			&none
+				// 1			// 2			// 3			// 1			// 2			// 3
+				&none			&trans			&trans			&none			&trans			&to GAME
 			>;
 		};
 
 		MACROS {
-			display-name = "Lazy Shit";
+			display-name = "Macros";
 			bindings = <
+				// 1		// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
 				&none		&none		&none		&none		&none		&m_mail_p	&none		&none		&none		&none		&none		&none
+				&none		&none		&none		&none		&m_jsa		&none		&none		&none		&none		&none		&none		&none
 				&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none
-				&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none		&none
+				// 1		// 2		// 3		// 1		// 2		// 3
 				&none		&none		&none		&none		&none		&trans
 			>;
 		};
 
-		EXTRA_1 {
-			display-name = "Extra 1";
-			status = "reserved";
+		GAME {
+			display-name = "Game";
+
+			// 1		// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
+			&kp ESC		&none		&kp Q		&kp W		&kp E		&kp R		&kp	N7		&kp N8		&kp N9		&kp J		&kp K		&kp L
+			&kp LCTRL	&kp LSHIFT	&kp A		&kp S		&kp D		&kp F		&kp	N4		&kp N5		&kp N6		&kp H		&kp U		&kp N
+			&kp Y		&kp Z		&kp X		&kp C		&kp V		&kp B		&kp	N1		&kp N2		&kp N3		&kp T		&kp P		&kp G
+			// 1		// 2		// 3		// 1		// 2		// 3
+			&kp M		&kp I		&kp SPACE	&kp COMMA 	&kp DOT		&to COLMMAK
+		>;
 		};
 
-		EXTRA_2 {
-			display-name = "Extra 2";
-			status = "reserved";
-		};
 	};
 };
