@@ -86,7 +86,7 @@
 		compatible = "zmk,keymap";
 
 		COLEMAK {
-			display-name = "ColemakDH";
+			display-name = "Colemak";
 			bindings = <
 				// 1			// 2		// 3		// 4		// 5		// 6		// 1		// 2		// 3		// 4		// 5		// 6
 				&kp TAB			&kp Q		&kp W		&kp F		&kp P		&kp B		&kp J		&kp L		&kp U		&kp Y		&kp SEMI	&kp COLON
